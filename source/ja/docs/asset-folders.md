@@ -1,25 +1,26 @@
 ---
-title: Asset Folders
+title: アセットフォルダ
 ---
-## Global Asset Folder
 
-Assets are non-post files in the `source` folder, such as images, CSS or JavaScript files. For instance, If you are only going to have a few images in the Hexo project, then the easiest way is to keep them in a `source/images` directory. Then, you can access them using something like `![](/images/image.jpg)`.
+## グローバル アセット フォルダ
 
-## Post Asset Folder
+アセット（添付ファイル）は画像や CSS、JavaScript ファイルのような`source`フォルダ内の記事以外のファイルです。例えば、Hexo プロジェクトに画像を配置したいなら、`source/images`ディレクトリに格納するのが一番簡単な方法です。こうすると、それらの画像は`![](/images/image.jpg)`で使用できます。
+
+## 記事 アセット フォルダ
 
 {% youtube feIDVQ2tz0o %}
 
-For users who expect to regularly serve images and/or other assets, and for those who prefer to separate their assets on a post-per-post basis, Hexo also provides a more organized way to manage assets. This slightly more involved, but very convenient approach to asset management can be turned on by setting the `post_asset_folder` setting in `_config.yml` to true.
+画像とそれ以外のアセットをきちんと分けて配信したい方や、記事ごとにアセットを分けたい方向けに、Hexo にはアセットを管理する方法が組み込まれています。これは少し複雑ですが、アセットを管理するにはとても便利な方法で`_config.yml`内の`post_asset_folder`を true に設定すると有効化できます。
 
-``` yaml _config.yml
+```yaml _config.yml
 post_asset_folder: true
 ```
 
-With asset folder management enabled, Hexo will create a folder every time you make a new post with the `hexo new [layout] <title>` command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow.
+アセットフォルダ管理を有効化すると、`hexo new [layout] <title>`コマンドで新しい記事を作るたびに Hexo はフォルダを作成します。このアセットフォルダ名は記事の markdown ファイル名と同じになります。簡単にそしてより便利にするため、記事に関連する全てのアセットをフォルダに入れて頂くと、相対パスを使って参照することがでます。
 
-## Tag Plugins For Relative Path Referencing
+## 相対パス参照のためのタグプラグイン
 
-Referencing images or other assets using normal markdown syntax and relative paths may lead to incorrect display on archive or index pages. Plugins have been created by the community to address this issue in Hexo 2. However, with the release of Hexo 3, several new [tag plugins](/docs/tag-plugins#Include-Assets) were added to core. These enable you to reference your assets more easily in posts:
+通常の markdown 構文を使った画像やその他のアセット参照では、アーカイブまたはインデックスページにおいて相対パスは誤った表示になる可能性があります。Hexo2 でこの問題に対応するためコミュニティによってプラグインが作成されました。しかし、Hexo3 のリリースに伴っていくつかの新しい[タグプラグイン](/docs/tag-plugins#Include-Assets)がコアに追加されました。これによって記事内でより簡単にアセットを参照することができます。
 
 ```
 {% asset_path slug %}
@@ -27,28 +28,28 @@ Referencing images or other assets using normal markdown syntax and relative pat
 {% asset_link slug [title] %}
 ```
 
-For example, with post asset folders enabled, if you place an image `example.jpg` into your asset folder, it will *not* appear on the index page if you reference it using a relative path with regular `![](example.jpg)` markdown syntax (however, it will work as expected in the post itself).
+例えば、アセットフォルダを有効化した場合、画像ファイル`example.jpg`をアセットフォルダに格納して、一般的な markdown 構文である`![](example.jpg)`で相対パスを使って参照しても、インデックスページには表示**されません**。（しかし、記事では期待通り表示されます）
 
-The correct way to reference the image will thus be using tag plugin syntax rather than markdown:
+画像を正しく参照するには、markdown ではなくタグプラグイン構文を使用します：
 
 ```
 {% asset_img example.jpg This is an example image %}
 {% asset_img "spaced asset.jpg" "spaced title" %}
 ```
 
-This way, the image will appear both inside the post and on index and archive pages.
+この方法で、画像は記事やインデックスページ、アーカイブページすべてで表示されます。
 
-## Embedding an image using markdown
+## markdown を使用した画像の埋め込み
 
-[hexo-renderer-marked](https://github.com/hexojs/hexo-renderer-marked) 3.1.0 introduced a new option that allows you to embed an image in markdown without using `asset_img` tag plugin.
+[hexo-renderer-marked](https://github.com/hexojs/hexo-renderer-marked) 3.1.0 では、タグプラグイン`asset_img`を使用しなくても markdown で画像を埋め込むことができます。
 
-To enable:
+有効化の方法：
 
-``` yml _config.yml
+```yml _config.yml
 post_asset_folder: true
 marked:
   prependRoot: true
   postAsset: true
 ```
 
-Once enabled, an asset image will be automatically resolved to its corresponding post's path. For example, "image.jpg" is located at "/2020/01/02/foo/image.jpg", meaning it is an asset image of "/2020/01/02/foo/" post, `![](image.jpg)` will be rendered as `<img src="/2020/01/02/foo/image.jpg">`.
+有効化すると、アセット画像はそれに対応した記事のパスに自動的に解決されます。例えば、"image.jpg"が"/2020/01/02/foo/image.jpg"に格納されていた場合、"/2020/01/02/foo/"記事のアセット画像と認識され、`![](image.jpg)` は `<img src="/2020/01/02/foo/image.jpg">`として描画されます。
