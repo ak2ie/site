@@ -4,7 +4,7 @@ title: GitHub ページ
 
 このチュートリアルでは、GitHub ページに公開するために[GitHub Actions](https://docs.github.com/ja/actions)を使用します。パブリックリポジトリとプライベートリポジトリ両方で動作します。GitHub にソースフォルダをアップロードしたくない場合は、[1 コマンドでの公開](#One-command-deployment)に進んでください。
 
-1. <b>_ユーザー名_.github.io</b>（「ユーザー名」は GitHub のユーザー名）リポジトリを作成します。他のリポジトリをアップロード済の場合は、代わりに名前を変更します。
+1. <b>_ユーザー名_.github.io</b>（「ユーザー名」は GitHub のユーザー名）リポジトリを作成します。すでに他のリポジトリをアップロード済の場合は、代わりに名前を変更します。
 2. 次の _強調された_ 行を `package.json`に追加します： (すでに存在する場合はスキップしてください)
 
 {% codeblock lang:json mark:2-4 %}
@@ -22,9 +22,9 @@ title: GitHub ページ
 }
 {% endcodeblock %}
 
-3. リポジトリの **`source` branch** に Hexo フォルダのファイルを Push します。デフォルトでは`public/`フォルダはアップロードされず（すべきではありません）、`.gitignore`ファイルには`public/`の行があります。フォルダ構成は`.gitmodules`ファイルを除き[このリポジトリ](https://github.com/hexojs/hexo-starter)とほぼ同じはずです。
+3. リポジトリの **`source` ブランチ** に Hexo フォルダ内のファイルをプッシュします。デフォルトでは`public/`フォルダはアップロードされず（すべきではありません）、`.gitignore`ファイルに`public/`の行があることを確認してください。フォルダ構成は`.gitmodules`ファイルを除き[このリポジトリ](https://github.com/hexojs/hexo-starter)とほぼ同じはずです。
 
-- `source` を GitHub に Push します：
+- `source` を GitHub にプッシュします：
 
 ```
 $ git push origin source
@@ -68,18 +68,18 @@ jobs:
           publish_branch: master # 公開ブランチ
 ```
 
-5. 公開が完了すると、リポジトリの`master`ブランチにページが生成されます。
-6. GitHub のリポジトリ設定を開き、"GitHub Pages" セクションに進みソースを **master branch**に変更します。
+5. デプロイが完了すると、リポジトリの`master`ブランチにページが生成されます。
+6. GitHub リポジトリの設定で、"GitHub Pages"セクションに進み、Source を**master ブランチ**に変更します。
 7. _ユーザー名_.github.io でページを確認します。
 
-注意 - `CNAME`でカスタムドメインを指定している場合は、`CNAME`ファイルに`source/`フォルダを追加する必要があります。
+注意 - `CNAME`でカスタムドメインを指定している場合は、`source/`フォルダに`CNAME`ファイルにを追加する必要があります。
 
 ## プロジェクトページ
 
 GitHub でプロジェクトページを使用したい場合：
 
-1. GitHub のリポジトリに移動します。**Settings**タブを開きます。Change the **Repository name** so your blog is available at <b>username.github.io/_repository_</b>, **repository** は*blog* または _hexo_ のようにどんな名前でも構いません。
-2. **\_config.yml** を編集し、change the `root:` value to the `/<repository>/` (先頭と末尾はスラッシュである必要があり、).
+1. GitHub のリポジトリに移動します。**Settings**タブを開きます。ブログは<b>ユーザー名.github.io/_リポジトリ名_</b>で利用可能になるため、**リポジトリ名** を変更します。_blog_ または _hexo_ のようにどんな名前でも構いません。
+2. **\_config.yml** を編集し、`root:` の値を `/<repository>/` に変更します。 (先頭と末尾はスラッシュである必要があり、括弧は除きます).
 3. `.github/workflows/pages.yml`を次のように書き換えます。
 
 ```diff .github/workflows/pages.yml
@@ -112,8 +112,8 @@ jobs:
 $ git push origin master
 ```
 
-5. Once the deployment is finished, the generated pages can be found in the `gh-pages` branch of your repository
-6. In your GitHub repo's setting, navigate to "GitHub Pages" section and change Source to **gh-pages branch**.
+5. デプロイが完了したら、リポジトリの `gh-pages` ブランチに生成されたファイルがあります。
+6. GitHub リポジトリの設定で、"GitHub Pages"セクションに進み、Source を**gh-pages ブランチ**に変更します。
 
 ## 1 コマンドでの公開
 
@@ -131,7 +131,7 @@ deploy:
 ```
 
 3. `hexo clean && hexo deploy`を実行します。
-4. _ユーザー名_.github.io を確認します。
+4. _ユーザー名_.github.io でページを確認します。
 
 ## 参考リンク
 

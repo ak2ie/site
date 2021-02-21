@@ -1,20 +1,20 @@
 ---
-title: Setup
+title: セットアップ
 ---
 
 {% youtube 0m2HnATkHOk %}
 
-Once Hexo is installed, run the following commands to initialize Hexo in the target `<folder>`.
+Hexo をインストールしたら、対象のフォルダ（`<folder>`）内で Hexo を初期化するために次のコマンドを実行します。
 
-``` bash
+```bash
 $ hexo init <folder>
 $ cd <folder>
 $ npm install
 ```
 
-Once initialized, here's what your project folder will look like:
+初期化すると、プロジェクトフォルダはこのようになります：
 
-``` plain
+```plain
 .
 ├── _config.yml
 ├── package.json
@@ -25,15 +25,15 @@ Once initialized, here's what your project folder will look like:
 └── themes
 ```
 
-### _config.yml
+### \_config.yml
 
-Site [configuration](configuration.html) file. You can configure most settings here.
+サイトの [設定](configuration.html) ファイルです。ほとんどの設定はここで変更できます。
 
 ### package.json
 
-Application data. The [EJS](https://ejs.co/), [Stylus](http://learnboost.github.io/stylus/) and [Markdown](http://daringfireball.net/projects/markdown/) renderers are installed by default. If you want, you can uninstall them later.
+アプリケーションデータです。デフォルトで、[EJS](https://ejs.co/)、[Stylus](http://learnboost.github.io/stylus/)、[Markdown](http://daringfireball.net/projects/markdown/)レンダラーがインストールされています。後からアンインストールすることもできます。
 
-``` json package.json
+```json package.json
 {
   "name": "hexo-site",
   "version": "0.0.0",
@@ -57,12 +57,12 @@ Application data. The [EJS](https://ejs.co/), [Stylus](http://learnboost.github.
 
 ### scaffolds
 
-[Scaffold](writing.html#Scaffolds) folder. When you create a new post, Hexo bases the new file on the scaffold.
+[ひな形](writing.html#Scaffolds) フォルダです。新しい記事を作成するとき、Hexo はひな形に基づいた新しいファイルを作成します。
 
 ### source
 
-Source folder. This is where you put your site's content. Hexo ignores hidden files and files or folders whose names are prefixed with `_` (underscore) - except the `_posts` folder. Renderable files (e.g. Markdown, HTML) will be processed and put into the `public` folder, while other files will simply be copied.
+ソースフォルダです。ここはサイトのコンテンツを格納する場所です。Hexo は隠しファイルとフォルダ、先頭が`_`（アンダースコア）始まる名前のファイルとフォルダを無視します。（`_posts`フォルダを除く）レンダリングするファイル（例：Markdown、HTML）は処理されて`public`フォルダに格納され、他のファイルは単純にコピーされます。
 
 ### themes
 
-[Theme](themes.html) folder. Hexo generates a static website by combining the site contents with the theme.
+[テーマ](themes.html) フォルダです。Hexo はサイトのコンテンツとテーマを組み合わせて静的ウェブサイトを生成します。

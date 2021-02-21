@@ -1,9 +1,10 @@
 ---
-title: Helpers
+title: ヘルパー
 ---
-Helpers are used in templates to help you insert snippets quickly.  Helpers cannot be used in source files.
 
-You could easily [write your own custom helper](https://hexo.io/api/helper.html) or use our ready-made helpers.
+ヘルパーを使うと、テンプレートでスニペットをすぐに挿入できます。ヘルパーはソースファイルでは使用できません。
+
+簡単に[独自のカスタムヘルパーを作る](https://hexo.io/api/helper.html) か、作成済のヘルパーも使用できます。
 
 {% youtube Uc53pW0GJHU %}
 
@@ -11,43 +12,43 @@ You could easily [write your own custom helper](https://hexo.io/api/helper.html)
 
 ### url_for
 
-Returns a url with the root path prefixed. Output is encoded automatically.
+先頭にルートパスを付けた URL を返します。自動的にエンコードされて出力されます。
 
-``` js
+```js
 <%- url_for(path, [option]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`relative` | Output relative link | Value of `config.relative_link`
+| オプション | 説明             | デフォルト値               |
+| ---------- | ---------------- | -------------------------- |
+| `relative` | 相対パスでの出力 | `config.relative_link`の値 |
 
-**Examples:**
+**例：**
 
-``` yml
+```yml
 _config.yml
-root: /blog/ # example
+root: /blog/ # 例
 ```
 
-``` js
+```js
 <%- url_for('/a/path') %>
 // /blog/a/path
 ```
 
-Relative link, follows `relative_link` option by default
-e.g. post/page path is '/foo/bar/index.html'
+相対リンクにするかは、デフォルトで`relative_link`オプションの値を参照します。
+例： 記事とページのパスは '/foo/bar/index.html' になります。
 
-``` yml
+```yml
 _config.yml
 relative_link: true
 ```
 
-``` js
+```js
 <%- url_for('/css/style.css') %>
 // ../../css/style.css
 
-/* Override option
- * you could also disable it to output a non-relative link,
- * even when `relative_link` is enabled and vice versa.
+/* オプションの上書き
+ * `relative_link`を有効にした場合でも、
+ * それを無効化して絶対パスのリンクを出力することもできますし、その逆も可能です。
  */
 <%- url_for('/css/style.css', {relative: false}) %>
 // /css/style.css
@@ -55,61 +56,61 @@ relative_link: true
 
 ### relative_url
 
-Returns the relative URL from `from` to `to`.
+`from` から見た `to` の相対パスを返します。
 
-``` js
+```js
 <%- relative_url(from, to) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- relative_url('foo/bar/', 'css/style.css') %>
 // ../../css/style.css
 ```
 
 ### full_url_for
 
-Returns a url with the `config.url` prefixed. Output is encoded automatically.
+`config.url` を先頭に付けた URL を返します。自動的にエンコードされて出力されます。
 
-``` js
+```js
 <%- full_url_for(path) %>
 ```
 
-**Examples:**
+**例：**
 
-``` yml
+```yml
 _config.yml
-url: https://example.com/blog # example
+url: https://example.com/blog # 例
 ```
 
-``` js
+```js
 <%- full_url_for('/a/path') %>
 // https://example.com/blog/a/path
 ```
 
 ### gravatar
 
-Returns the gravatar image url from an email.
+メールアドレスから gravatar の画像 URL を返します。
 
-If you didn't specify the [options] parameter, the default options will apply. Otherwise, you can set it to a number which will then be passed on as the size parameter to Gravatar. Finally, if you set it to an object, it will be converted into a query string of parameters for Gravatar.
+[options]パラメータが未設定の場合、デフォルトオプションが適用されます。その他に、Gravatar に渡すサイズパラメータの数値を設定できます。最後に、オブジェクトを設定すると、Gravatar へのクエリ文字列に変換されます。
 
-``` js
+```js
 <%- gravatar(email, [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`s` | Output image size | 80
-`d` | Default image |
-`f` | Force default |
-`r` | Rating |
+| オプション | 説明                 | デフォルト値 |
+| ---------- | -------------------- | ------------ |
+| `s`        | 出力画像サイズ       | 80           |
+| `d`        | デフォルト画像       |
+| `f`        | デフォルト画像の強制 |
+| `r`        | レーティング         |
 
-More info: [Gravatar](https://en.gravatar.com/site/implement/images/)
+追加情報： [Gravatar](https://ja.gravatar.com/site/implement/images/)
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- gravatar('a@abc.com') %>
 // https://www.gravatar.com/avatar/b9b00e66c6b8a70f88c73cb6bdb06787
 
@@ -120,19 +121,19 @@ More info: [Gravatar](https://en.gravatar.com/site/implement/images/)
 // https://www.gravatar.com/avatar/b9b00e66c6b8a70f88c73cb6bdb06787?s=40&d=https%3A%2F%2Fvia.placeholder.com%2F150
 ```
 
-## HTML Tags
+## HTML タグ
 
 ### css
 
-Loads CSS files. `path` can be an array or a string. `path` can be a string, an array, an object or an array of objects. [`/<root>/`](/docs/configuration#URL) value is prepended while `.css` extension is appended to the `path` automatically. Use object type for custom attributes.
+CSS ファイルを読み込みます。 `path` には文字列または配列を指定できます。 `path` は文字列や配列、オブジェクト、オブジェクトの配列も指定可能です。`path`に`.css`拡張子が含まれる場合、自動的に[`/<root>/`](/ja/docs/configuration#URL)の値が先頭に付与されます。任意の属性にはオブジェクトを使用します。
 
-``` js
+```js
 <%- css(path, ...) %>
 ```
 
 **Examples:**
 
-``` js
+```js
 <%- css('style.css') %>
 // <link rel="stylesheet" href="/style.css">
 
@@ -150,15 +151,15 @@ Loads CSS files. `path` can be an array or a string. `path` can be a string, an 
 
 ### js
 
-Loads JavaScript files. `path` can be a string, an array, an object or an array of objects. [`/<root>/`](/docs/configuration#URL) value is prepended while `.js` extension is appended to the `path` automatically. Use object type for custom attributes.
+JavaScript ファイルを読み込みます。`path`には文字列や配列、オブジェクト、オブジェクトの配列を使用できます。`path`に`.js`拡張子が含まれる場合、自動的に[`/<root>/`](/ja/docs/configuration#URL)の値が先頭に付与されます。任意の属性にはオブジェクトを使用します。
 
-``` js
+```js
 <%- js(path, ...) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- js('script.js') %>
 // <script src="/script.js"></script>
 
@@ -176,21 +177,21 @@ Loads JavaScript files. `path` can be a string, an array, an object or an array 
 
 ### link_to
 
-Inserts a link.
+リンクを挿入します。
 
-``` js
+```js
 <%- link_to(path, [text], [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`external` | Opens the link in a new tab | false
-`class` | Class name |
-`id` | ID |
+| オプション | 説明                     | デフォルト値 |
+| ---------- | ------------------------ | ------------ |
+| `external` | 新しいタブでリンクを開く | false        |
+| `class`    | クラス名                 |
+| `id`       | ID                       |
 
 **Examples:**
 
-``` js
+```js
 <%- link_to('http://www.google.com') %>
 // <a href="http://www.google.com" title="http://www.google.com">http://www.google.com</a>
 
@@ -203,24 +204,24 @@ Option | Description | Default
 
 ### mail_to
 
-Inserts a mail link.
+メールリンクを挿入します。
 
-``` js
+```js
 <%- mail_to(path, [text], [options]) %>
 ```
 
-Option | Description
---- | ---
-`class` | Class name
-`id` | ID
-`subject` | Mail subject
-`cc` | CC
-`bcc` | BCC
-`body` | Mail content
+| オプション | 説明       |
+| ---------- | ---------- |
+| `class`    | クラス名   |
+| `id`       | ID         |
+| `subject`  | メール件名 |
+| `cc`       | CC         |
+| `bcc`      | BCC        |
+| `body`     | メール本文 |
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- mail_to('a@abc.com') %>
 // <a href="mailto:a@abc.com" title="a@abc.com">a@abc.com</a>
 
@@ -230,44 +231,44 @@ Option | Description
 
 ### image_tag
 
-Inserts an image.
+画像を挿入します。
 
-``` js
+```js
 <%- image_tag(path, [options]) %>
 ```
 
-Option | Description
---- | ---
-`alt` | Alternative text of the image
-`class` | Class name
-`id` | ID
-`width` | Image width
-`height` | Image height
+| オプション | 説明               |
+| ---------- | ------------------ |
+| `alt`      | 画像の代替テキスト |
+| `class`    | クラス名           |
+| `id`       | ID                 |
+| `width`    | 画像の幅           |
+| `height`   | 画像の高さ         |
 
 ### favicon_tag
 
-Inserts a favicon.
+favicon を挿入します。
 
-``` js
+```js
 <%- favicon_tag(path) %>
 ```
 
 ### feed_tag
 
-Inserts a feed link.
+フィードのリンクを挿入します。
 
-``` js
+```js
 <%- feed_tag(path, [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`title` | Feed title | `config.title`
-`type` | Feed type | atom
+| オプション | 説明               | デフォルト値   |
+| ---------- | ------------------ | -------------- |
+| `title`    | フィードのタイトル | `config.title` |
+| `type`     | フィードの種類     | atom           |
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- feed_tag('atom.xml') %>
 // <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
@@ -279,251 +280,251 @@ Option | Description | Default
 // <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 ```
 
-## Conditional Tags
+## 条件タグ
 
 ### is_current
 
-Check whether `path` matches the URL of the current page. Use `strict` options to enable strict matching.
+`path` が現在のページの URL と一致するかチェックします。厳密なマッチングには`strict`を使用します。
 
-``` js
+```js
 <%- is_current(path, [strict]) %>
 ```
 
 ### is_home
 
-Check whether the current page is home page.
+現在のページがホームページであるかチェックします。
 
-``` js
+```js
 <%- is_home() %>
 ```
 
 ### is_post
 
-Check whether the current page is a post.
+現在のページが記事であるかチェックします。
 
-``` js
+```js
 <%- is_post() %>
 ```
 
 ### is_page
 
-Check whether the current page is a page.
+現在のページがページであるかチェックします。
 
-``` js
+```js
 <%- is_page() %>
 ```
 
 ### is_archive
 
-Check whether the current page is an archive page.
+現在のページがアーカイブページであるかチェックします。
 
-``` js
+```js
 <%- is_archive() %>
 ```
 
 ### is_year
 
-Check whether the current page is a yearly archive page.
+現在のページが年ごとのアーカイブページであるかチェックします。
 
-``` js
+```js
 <%- is_year() %>
 ```
 
 ### is_month
 
-Check whether the current page is a monthly archive page.
+現在のページが月ごとのアーカイブページであるかチェックします。
 
-``` js
+```js
 <%- is_month() %>
 ```
 
 ### is_category
 
-Check whether the current page is a category page.
-If a string is given as parameter, check whether the current page match the given category.
+現在のページがカテゴリーページであるかチェックします。
+引数に文字列を指定すると、現在のページが指定されたタグと一致するかチェックします。
 
-``` js
+```js
 <%- is_category() %>
 <%- is_category('hobby') %>
 ```
 
 ### is_tag
 
-Check whether the current page is a tag page.
-If a string is given as parameter, check whether the current page match the given tag.
+現在のページがタグページであるかチェックします。
+引数に文字列を指定すると、現在のページが指定されたタグと一致するかチェックします。
 
-``` js
+```js
 <%- is_tag() %>
 <%- is_tag('hobby') %>
 ```
 
-## String Manipulation
+## 文字列操作
 
 ### trim
 
-Removes prefixing and trailing spaces of a string.
+文字列の先頭と末尾の空白を除去します。
 
-``` js
+```js
 <%- trim(string) %>
 ```
 
 ### strip_html
 
-Sanitizes all HTML tags in a string.
+文字列内の全ての HTML タグを除去します。
 
-``` js
+```js
 <%- strip_html(string) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- strip_html('It\'s not <b>important</b> anymore!') %>
 // It's not important anymore!
 ```
 
 ### titlecase
 
-Transforms a string into proper title caps.
+文字列を適切に英語タイトルの大文字化します。
 
-``` js
+```js
 <%- titlecase(string) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- titlecase('this is an apple') %>
 # This is an Apple
 ```
 
 ### markdown
 
-Renders a string with Markdown.
+MarkDown の文字列をレンダリングします。
 
-``` js
+```js
 <%- markdown(str) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- markdown('make me **strong**') %>
 // make me <strong>strong</strong>
 ```
 
 ### render
 
-Renders a string.
+文字列をレンダリングします。
 
-``` js
+```js
 <%- render(str, engine, [options]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- render('p(class="example") Test', 'pug'); %>
 // <p class="example">Test</p>
 ```
 
-See [Rendering](https://hexo.io/api/rendering) for more details.
+詳しくは[Rendering](https://hexo.io/ja/api/rendering)を参照してください。
 
 ### word_wrap
 
-Wraps text into lines no longer than `length`. `length` is 80 by default.
+テキストを `length` 以下の長さの行に折り返します。デフォルトでは `length` は 80 です。
 
-``` js
+```js
 <%- word_wrap(str, [length]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- word_wrap('Once upon a time', 8) %>
 // Once upon\n a time
 ```
 
 ### truncate
 
-Truncates text after certain `length`. Default is 30 characters.
+指定した長さ `length` にテキストを切り詰めます。デフォルトでは 30 文字です。
 
-``` js
+```js
 <%- truncate(text, [options]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
-<%- truncate('Once upon a time in a world far far away', {length: 17}) %>
-// Once upon a ti...
+```js
+<%- truncate('昔々あるところに、お爺さんとお婆さんが', {length: 17}) %>
+// 昔々あるところに、お爺さんと...
 
 <%- truncate('Once upon a time in a world far far away', {length: 17, separator: ' '}) %>
 // Once upon a...
 
-<%- truncate('And they found that many people were sleeping better.', {length: 25, omission: '... (continued)'}) %>
-// And they f... (continued)
+<%- truncate('そして、多くの人がよく眠れていることが分かりました。', {length: 25, omission: '... (続き)'}) %>
+// そして、多くの人がよく眠れているこ... (続き)
 ```
 
 ### escape_html
 
-Escapes HTML entities in a string.
+文字列内の HTML 要素をエスケープします。
 
-``` js
+```js
 <%- escape_html(str) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- escape_html('<p>Hello "world".</p>') %>
 // &lt;p&gt;Hello &quot;world&quot;.&lt;&#x2F;p&gt;
 ```
 
-## Templates
+## テンプレート
 
 ### partial
 
-Loads other template files. You can define local variables in `locals`.
+他のテンプレートファイルを読み込みます。`locals`でローカル変数を定義できます。
 
-``` js
+```js
 <%- partial(layout, [locals], [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`cache` | Cache contents (Use fragment cache) | `false`
-`only` | Strict local variables. Only use variables set in `locals` in templates. | `false`
+| オプション | 説明                                                                   | デフォルト値 |
+| ---------- | ---------------------------------------------------------------------- | ------------ |
+| `cache`    | コンテンツをキャッシュ（フラグメントキャッシュを使用）                 | `false`      |
+| `only`     | 厳密なローカル変数。テンプレートの`locals`で設定された変数のみを使用。 | `false`      |
 
-### fragment_cache
+### フラグメントキャッシュ
 
-Caches the contents in a fragment. It saves the contents within a fragment and serves the cache when the next request comes in.
+コンテンツの断片をキャッシュします。断片内のコンテンツを保存し、次のリクエストが来たらキャッシュを配信します。
 
-``` js
+```js
 <%- fragment_cache(id, fn);
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- fragment_cache('header', function(){
   return '<header></header>';
 }) %>
 ```
 
-## Date & Time
+## 日付と時刻
 
 ### date
 
-Inserts formatted date. `date` can be unix time, ISO string, date object, or [Moment.js] object. `format` is `date_format` setting by default.
+フォーマットを指定して日付を挿入します。`date`は UNIX 時間や ISO 表記、date オブジェクト、[Moment.js]のオブジェクトを使用できます。`format`にはデフォルトで `date_format`が設定されます。
 
-``` js
+```js
 <%- date(date, [format]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- date(Date.now()) %>
 // 2013-01-01
 
@@ -533,30 +534,30 @@ Inserts formatted date. `date` can be unix time, ISO string, date object, or [Mo
 
 ### date_xml
 
-Inserts date in XML format. `date` can be unix time, ISO string, date object, or [Moment.js] object.
+XML フォーマットの日付を挿入します。`date`は UNIX 時間や ISO 表記、date オブジェクト、[Moment.js]のオブジェクトを使用できます。
 
-``` js
+```js
 <%- date_xml(date) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- date_xml(Date.now()) %>
 // 2013-01-01T00:00:00.000Z
 ```
 
 ### time
 
-Inserts formatted time. `date` can be unix time, ISO string, date object, or [Moment.js] object. `format` is `time_format` setting by default.
+フォーマットを指定して時刻を挿入します。`date`は UNIX 時間や ISO 表記、date オブジェクト、[Moment.js]のオブジェクトを使用できます。`format`にはデフォルトで `time_format`が設定されます。
 
-``` js
+```js
 <%- time(date, [format]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- time(Date.now()) %>
 // 13:05:12
 
@@ -566,15 +567,15 @@ Inserts formatted time. `date` can be unix time, ISO string, date object, or [Mo
 
 ### full_date
 
-Inserts formatted date and time. `date` can be unix time, ISO string, date object, or [Moment.js] object. `format` is `date_format + time_format` setting by default.
+フォーマットを指定して日付と時刻を挿入します。`date`は UNIX 時間や ISO 表記、date オブジェクト、[Moment.js]のオブジェクトを使用できます。`format`にはデフォルトで `date_format + time_format`が設定されます。
 
-``` js
+```js
 <%- full_date(date, [format]) %>
 ```
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- full_date(new Date()) %>
 // Jan 1, 2013 0:00:00
 
@@ -584,33 +585,33 @@ Inserts formatted date and time. `date` can be unix time, ISO string, date objec
 
 ### moment
 
-[Moment.js] library.
+[Moment.js] ライブラリです。
 
-## List
+## リスト
 
 ### list_categories
 
-Inserts a list of all categories.
+全カテゴリのリストを挿入します。
 
-``` js
+```js
 <%- list_categories([options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`orderby` | Order of categories | name
-`order` | Sort of order. `1`, `asc` for ascending; `-1`, `desc` for descending | 1
-`show_count` | Display the number of posts for each category | true
-`style` | Style to display the category list. `list` displays categories in an unordered list.  | list
-`separator` | Separator between categories. (Only works if `style` is not `list`) | ,
-`depth` | Levels of categories to be displayed. `0` displays all categories and child categories; `-1` is similar to `0` but displayed in flat; `1` displays only top level categories. | 0
-`class` | Class name of category list. | category
-`transform` | The function that changes the display of category name. |
-`suffix` | Add a suffix to link. | None
+| オプション   | 説明                                                                                                                                                       | デフォルト値 |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `orderby`    | カテゴリの並び順                                                                                                                                           | name         |
+| `order`      | 並べ方。 昇順なら`1`または`asc`。降順なら`-1`または`desc`。                                                                                                | 1            |
+| `show_count` | カテゴリごとに記事数を表示                                                                                                                                 | true         |
+| `style`      | カテゴリリストを表示する際のスタイル。 `list`を指定すると並び替えずに表示。                                                                                | list         |
+| `separator`  | カテゴリ間の区切り。 (`style`に`list`が指定されない場合のみ適用)                                                                                           | ,            |
+| `depth`      | 表示するカテゴリの最大階層。 `0`を指定すると、全カテゴリと子カテゴリを表示。`-1`は `0`に似ていますが、同一階層に表示。 `1`は最上位階層のカテゴリのみ表示。 | 0            |
+| `class`      | カテゴリリストのクラス名                                                                                                                                   | category     |
+| `transform`  | カテゴリ名の表示を変更するための関数                                                                                                                       |
+| `suffix`     | リンクにに追加する接尾辞                                                                                                                                   | なし         |
 
-**Examples:**
+**例：**
 
-``` js
+```js
 <%- list_categories(post.categories, {
   class: 'post-category',
   transform(str) {
@@ -628,35 +629,35 @@ Option | Description | Default
 
 ### list_tags
 
-Inserts a list of all tags.
+全タグのリストを挿入します。
 
-``` js
+```js
 <%- list_tags([options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`orderby` | Order of categories | name
-`order` | Sort of order. `1`, `asc` for ascending; `-1`, `desc` for descending | 1
-`show_count` | Display the number of posts for each tag | true
-`style` | Style to display the tag list. `list` displays tags in an unordered list. | list
-`separator` | Separator between categories. (Only works if `style` is not `list`) | ,
-`class` | Class name of tag list (string) or customize each tag's class (object, see below). | tag
-`transform` | The function that changes the display of tag name. See examples in [list_categories](#list-categories). |
-`amount` | The number of tags to display (0 = unlimited) | 0
-`suffix` | Add a suffix to link. | None
+| オプション   | 説明                                                                                       | デフォルト値 |
+| ------------ | ------------------------------------------------------------------------------------------ | ------------ |
+| `orderby`    | カテゴリの並び順                                                                           | name         |
+| `order`      | 並べ方。 昇順なら`1`または`asc`。降順なら`-1`または`desc`。                                |
+| `show_count` | タグごとに記事数を表示                                                                     | true         |
+| `style`      | タグリストを表示する際のスタイル。 `list`を指定すると並び替えずに表示。                    | list         |
+| `separator`  | タグ間の区切り。 (`style`が`list`でない場合のみ適用)                                       | ,            |
+| `class`      | タグリストのクラス名（文字列）または、タグのクラスごとのカスタム（オブジェクト、下記参照） | tag          |
+| `transform`  | タグ名の表示を変更するための関数。[list_categories](#list-categories)の例を参照。          |
+| `amount`     | 表示するタグ数。(0 = 無制限）                                                              | 0            |
+| `suffix`     | リンクに追加する接尾辞                                                                     | None         |
 
-Class advanced customization:
+クラスの上級拡張：
 
-Option | Description | Default
---- | --- | ---
-`class.ul` | `<ul>` class name (only for style `list`) | `tag-list` (list style)
-`class.li` | `<li>` class name (only for style `list`) | `tag-list-item` (list style)
-`class.a` | `<a>` class name | `tag-list-link` (list style) `tag-link` (normal style)
-`class.label` | `<span>` class name where the tag label is stored (only for normal style, when `class.label` is set the label is put in a `<span>`) | `tag-label` (normal style)
-`class.count` | `<span>` class name where the tag counter is stored (only when `show_count` is `true`) | `tag-list-count` (list style) `tag-count` (normal style)
+| オプション    | 説明                                                                                                        | デフォルト値                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `class.ul`    | `<ul>`のクラス名 (`list`スタイルのみで使用可能)                                                             | `tag-list` (リストスタイル)                                  |
+| `class.li`    | `<li>` のクラス名 (`list`スタイルのみで使用可能)                                                            | `tag-list-item` (リストスタイル)                             |
+| `class.a`     | `<a>` のクラス名                                                                                            | `tag-list-link` (リストスタイル) `tag-link` (通常スタイル)   |
+| `class.label` | タグの階層が含まれる`<span>`のクラス名 (`class.label`を設定したとき`<span>`に通常スタイルでのみ使用可能。 ) | `tag-label` (normal style)                                   |
+| `class.count` | タグ数が含まれる`<span>` のクラス名 (`show_count` が `true`の場合のみ使用可能)                              | `tag-list-count` (リストスタイル) `tag-count` (通常スタイル) |
 
-Examples:
+例：
 
 ```ejs
 <%- list_tags(site.tags, {class: 'classtest', style: false, separator: ' | '}) %>
@@ -667,108 +668,108 @@ Examples:
 
 ### list_archives
 
-Inserts a list of archives.
+アーカイブリストを挿入します。
 
-``` js
+```js
 <%- list_archives([options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`type` | Type. This value can be `yearly` or `monthly`. | monthly
-`order` | Sort of order. `1`, `asc` for ascending; `-1`, `desc` for descending | 1
-`show_count` | Display the number of posts for each archive | true
-`format` | Date format | MMMM YYYY
-`style` | Style to display the archive list. `list` displays archives in an unordered list.  | list
-`separator` | Separator between archives. (Only works if `style` is not `list`) | ,
-`class` | Class name of archive list. | archive
-`transform` | The function that changes the display of archive name. See examples in [list_categories](#list-categories). |
+| Option       | Description                                                                              | Default   |
+| ------------ | ---------------------------------------------------------------------------------------- | --------- |
+| `type`       | 種類。`yearly`または`monthly`を設定可能。                                                | monthly   |
+| `order`      | 並べ方。 昇順なら`1`または`asc`。降順なら`-1`または`desc`。                              | 1         |
+| `show_count` | アーカイブごとに記事数を表示                                                             | true      |
+| `format`     | 日付フォーマット                                                                         | MMMM YYYY |
+| `style`      | アーカイブリストを表示する際のスタイル。`list`を指定すると並び替えずにアーカイブを表示。 | list      |
+| `separator`  | アーカイブ間の区切り。 (`style`が`list`でない場合のみ適用)                               | ,         |
+| `class`      | アーカイブリストのクラス名                                                               | archive   |
+| `transform`  | アーカイブ名の表示を変更するための関数。[list_categories](#list-categories)の例を参照    |
 
 ### list_posts
 
-Inserts a list of posts.
+記事のリストを挿入します。
 
-``` js
+```js
 <%- list_posts([options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`orderby` | Order of posts | date
-`order` | Sort of order. `1`, `asc` for ascending; `-1`, `desc` for descending | 1
-`style` | Style to display the post list. `list` displays posts in an unordered list.  | list
-`separator` | Separator between posts. (Only works if `style` is not `list`) | ,
-`class` | Class name of post list. | post
-`amount` | The number of posts to display (0 = unlimited) | 6
-`transform` | The function that changes the display of post name. See examples in [list_categories](#list-categories). |
+| Option      | Description                                                                        | Default |
+| ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `orderby`   | 記事の並び順                                                                       | date    |
+| `order`     | 並べ方。 昇順なら`1`または`asc`。降順なら`-1`または`desc`。                        | 1       |
+| `style`     | 記事リストを表示する際のスタイル。`list`を指定すると並び替えずにアーカイブを表示。 | list    |
+| `separator` | 記事間の区切り。 (`style`が`list`でない場合のみ適用)                               | ,       |
+| `class`     | 記事リストのクラス名                                                               | post    |
+| `amount`    | 表示する記事数(0 = 無制限)                                                         | 6       |
+| `transform` | 記事名の表示を変更するための関数。[list_categories](#list-categories)の例を参照    |
 
 ### tagcloud
 
-Inserts a tag cloud.
+タグクラウドを挿入します。
 
-``` js
+```js
 <%- tagcloud([tags], [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`min_font` | Minimum font size | 10
-`max_font` | Maximum font size | 20
-`unit` | Unit of font size | px
-`amount` | Total amount of tags | unlimited
-`orderby` | Order of tags | name
-`order` | Sort order. `1`, `asc` as ascending; `-1`, `desc` as descending | 1
-`color` | Colorizes the tag cloud | false
-`start_color` | Start color. You can use hex (`#b700ff`), rgba (`rgba(183, 0, 255, 1)`), hsla (`hsla(283, 100%, 50%, 1)`) or [color keywords]. This option only works when `color` is true. |
-`end_color` | End color. You can use hex (`#b700ff`), rgba (`rgba(183, 0, 255, 1)`), hsla (`hsla(283, 100%, 50%, 1)`) or [color keywords]. This option only works when `color` is true. |
-`class` | Class name prefix of tags
-`level` | The number of different class names. This option only works when `class` is set. | 10
+| Option        | Description                                                                                                                                             | Default   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `min_font`    | 最小フォントサイズ                                                                                                                                      | 10        |
+| `max_font`    | 最大フォントサイズ                                                                                                                                      | 20        |
+| `unit`        | フォントサイズの単位                                                                                                                                    | px        |
+| `amount`      | タグの総数                                                                                                                                              | unlimited |
+| `orderby`     | タグの並び順                                                                                                                                            | name      |
+| `order`       | 並べ方。 昇順なら`1`または`asc`。降順なら`-1`または`desc`。                                                                                             | 1         |
+| `color`       | タグクラウドをカラーにする                                                                                                                              | false     |
+| `start_color` | 最初の色。(`#b700ff`)や rgba (`rgba(183, 0, 255, 1)`)、hsla (`hsla(283, 100%, 50%, 1)`)、[カラーキーワード] を使用可能。`color`が true の場合のみ有効。 |
+| `end_color`   | 最後の色。(`#b700ff`)や rgba (`rgba(183, 0, 255, 1)`)、hsla (`hsla(283, 100%, 50%, 1)`)、[カラーキーワード] を使用可能。`color`が true の場合のみ有効。 |
+| `class`       | タグのクラス名の接頭辞                                                                                                                                  |
+| `level`       | 個別のクラス名の数。`class`が設定されている場合のみ有効。                                                                                               | 10        |
 
-**Examples:**
+**例：**
 
-``` js
-// Default options
+```js
+// デフォルトオプション
 <%- tagcloud() %>
 
-// Limit number of tags to 30
+// タグの総数を30に制限
 <%- tagcloud({amount: 30}) %>
 ```
 
-## Miscellaneous
+## 様々なもの
 
 ### paginator
 
-Inserts a paginator.
+ページネーションを挿入します。
 
-``` js
+```js
 <%- paginator(options) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`base` | Base URL | /
-`format` | URL format | page/%d/
-`total` | The number of pages | 1
-`current` | Current page number | 0
-`prev_text` | The link text of previous page. Works only if `prev_next` is set to true. | Prev
-`next_text` | The link text of next page. Works only if `prev_next` is set to true. | Next
-`space` | The space text | &hellp;
-`prev_next` | Display previous and next links | true
-`end_size` | The number of pages displayed on the start and the end side | 1
-`mid_size` | The number of pages displayed between current page, but not including current page | 2
-`show_all` | Display all pages. If this is set to true, `end_size` and `mid_size` will not work | false
-`escape` | Escape HTML tags | true
+| オプション  | 説明                                                                               | デフォルト値 |
+| ----------- | ---------------------------------------------------------------------------------- | ------------ |
+| `base`      | ベース URL                                                                         | /            |
+| `format`    | URL フォーマット                                                                   | page/%d/     |
+| `total`     | ページ数                                                                           | 1            |
+| `current`   | 現在のページ数                                                                     | 0            |
+| `prev_text` | The link text of previous page. Works only if `prev_next` is set to true.          | Prev         |
+| `next_text` | The link text of next page. Works only if `prev_next` is set to true.              | Next         |
+| `space`     | The space text                                                                     | &hellp;      |
+| `prev_next` | Display previous and next links                                                    | true         |
+| `end_size`  | The number of pages displayed on the start and the end side                        | 1            |
+| `mid_size`  | The number of pages displayed between current page, but not including current page | 2            |
+| `show_all`  | Display all pages. If this is set to true, `end_size` and `mid_size` will not work | false        |
+| `escape`    | Escape HTML tags                                                                   | true         |
 
 **Examples:**
 
-``` js
+```js
 <%- paginator({
   prev_text: '<',
   next_text: '>'
 }) %>
 ```
 
-``` html
+```html
 <!-- Rendered as -->
 <a href="/1/">&lt;</a>
 <a href="/1/">1</a>
@@ -777,7 +778,7 @@ Option | Description | Default
 <a href="/3/">&gt;</a>
 ```
 
-``` js
+```js
 <%- paginator({
   prev_text: '<i class="fa fa-angle-left"></i>',
   next_text: '<i class="fa fa-angle-right"></i>',
@@ -785,7 +786,7 @@ Option | Description | Default
 }) %>
 ```
 
-``` html
+```html
 <!-- Rendered as -->
 <a href="/1/"><i class="fa fa-angle-left"></i></a>
 <a href="/1/">1</a>
@@ -798,33 +799,33 @@ Option | Description | Default
 
 Inserts a Google search form.
 
-``` js
+```js
 <%- search_form(options) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`class` | The class name of form | search-form
-`text` | Search hint word | Search
-`button` | Display search button. The value can be a boolean or a string. If the value is a string, it'll be the text of the button. | false
+| Option   | Description                                                                                                               | Default     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `class`  | The class name of form                                                                                                    | search-form |
+| `text`   | Search hint word                                                                                                          | Search      |
+| `button` | Display search button. The value can be a boolean or a string. If the value is a string, it'll be the text of the button. | false       |
 
 ### number_format
 
 Formats a number.
 
-``` js
+```js
 <%- number_format(number, [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`precision` | The precision of number. The value can be `false` or a nonnegative integer. | false
-`delimiter` | The thousands delimiter | ,
-`separator` | The separator between the fractional and integer digits. | .
+| Option      | Description                                                                 | Default |
+| ----------- | --------------------------------------------------------------------------- | ------- |
+| `precision` | The precision of number. The value can be `false` or a nonnegative integer. | false   |
+| `delimiter` | The thousands delimiter                                                     | ,       |
+| `separator` | The separator between the fractional and integer digits.                    | .       |
 
 **Examples:**
 
-``` js
+```js
 <%- number_format(12345.67, {precision: 1}) %>
 // 12,345.68
 
@@ -845,13 +846,13 @@ Option | Description | Default
 
 Inserts [generator tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).
 
-``` js
+```js
 <%- meta_generator() %>
 ```
 
 **Examples:**
 
-``` js
+```js
 <%- meta_generator() %>
 // <meta name="generator" content="Hexo 4.0.0">
 ```
@@ -860,46 +861,46 @@ Inserts [generator tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Elemen
 
 Inserts [Open Graph] data.
 
-``` js
+```js
 <%- open_graph([options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`title` | Page title (`og:title`) | `page.title`
-`type` | Page type (`og:type`) | blog
-`url` | Page URL (`og:url`) | `url`
-`image` | Page images (`og:image`) | All images in the content
-`site_name` | Site name (`og:site_name`) | `config.title`
-`description` | Page description (`og:description`) | Page excerpt or first 200 characters of the content
-`twitter_card` | Twitter card type (`twitter:card`) | summary
-`twitter_id` | Twitter ID (`twitter:creator`) |
-`twitter_site` | Twitter Site (`twitter:site`) |
-`google_plus` | Google+ profile link |
-`fb_admins` | Facebook admin ID |
-`fb_app_id` | Facebook App ID |
+| Option         | Description                         | Default                                             |
+| -------------- | ----------------------------------- | --------------------------------------------------- |
+| `title`        | Page title (`og:title`)             | `page.title`                                        |
+| `type`         | Page type (`og:type`)               | blog                                                |
+| `url`          | Page URL (`og:url`)                 | `url`                                               |
+| `image`        | Page images (`og:image`)            | All images in the content                           |
+| `site_name`    | Site name (`og:site_name`)          | `config.title`                                      |
+| `description`  | Page description (`og:description`) | Page excerpt or first 200 characters of the content |
+| `twitter_card` | Twitter card type (`twitter:card`)  | summary                                             |
+| `twitter_id`   | Twitter ID (`twitter:creator`)      |
+| `twitter_site` | Twitter Site (`twitter:site`)       |
+| `google_plus`  | Google+ profile link                |
+| `fb_admins`    | Facebook admin ID                   |
+| `fb_app_id`    | Facebook App ID                     |
 
 ### toc
 
 Parses all heading tags (h1~h6) in the content and inserts a table of contents.
 
-``` js
+```js
 <%- toc(str, [options]) %>
 ```
 
-Option | Description | Default
---- | --- | ---
-`class` | Class name | toc
-`list_number` | Displays list number | true
-`max_depth` | Maximum heading depth of generated toc | 6
-`min_depth` | Minimum heading depth of generated toc | 1
+| Option        | Description                            | Default |
+| ------------- | -------------------------------------- | ------- |
+| `class`       | Class name                             | toc     |
+| `list_number` | Displays list number                   | true    |
+| `max_depth`   | Maximum heading depth of generated toc | 6       |
+| `min_depth`   | Minimum heading depth of generated toc | 1       |
 
 **Examples:**
 
-``` js
+```js
 <%- toc(page.content) %>
 ```
 
 [color keywords]: http://www.w3.org/TR/css3-color/#svg-color
-[Moment.js]: http://momentjs.com/
-[Open Graph]: http://ogp.me/
+[moment.js]: http://momentjs.com/
+[open graph]: http://ogp.me/

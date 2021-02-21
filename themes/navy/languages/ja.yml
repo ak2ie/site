@@ -1,11 +1,11 @@
 menu:
-  docs: Docs
+  docs: ドキュメント
   api: API
-  news: News
-  plugins: Plugins
-  themes: Themes
+  news: ニュース
+  plugins: プラグイン
+  themes: テーマ
   about: About
-  search: Search
+  search: 検索
 
 index:
   get_started: Get started
@@ -13,38 +13,38 @@ index:
   theme_link: Explore themes
 
 page:
-  contents: Contents
-  back_to_top: Back to Top
-  improve: Improve this doc
-  prev: Prev
-  next: Next
-  last_updated: "Last updated: %s"
+  contents: コンテンツ
+  back_to_top: トップへ
+  improve: このドキュメントを改良
+  prev: 前へ
+  next: 次へ
+  last_updated: "最終更新日： %s"
 
 sidebar:
   docs:
     getting_started: Getting Started
     overview: Overview
-    setup: Setup
-    configuration: Configuration
-    commands: Commands
-    migration: Migration
-    basic_usage: Basic Usage
+    setup: セットアップ
+    configuration: 設定
+    commands: コマンド
+    migration: マイングレーション
+    basic_usage: 基本的な使い方
     writing: Writing
     front_matter: Front-matter
-    tag_plugins: Tag Plugins
+    tag_plugins: タグプラグイン
     asset_folders: Asset Folders
     data_files: Data Files
-    server: Server
+    server: サーバー
     generating: Generating
-    deployment: Deployment
-    github_pages: GitHub Pages
-    gitlab_pages: GitLab Pages
+    deployment: デプロイ
+    github_pages: GitHubページ
+    gitlab_pages: GitLabページ
     one_command_deployment: One-Command Deployment
     customization: Customization
     permalinks: Permalinks
-    themes: Themes
+    themes: テーマ
     structure: Structure
-    templates: Templates
+    templates: テンプレート
     variables: Variables
     helpers: Helpers
     internationalization: Internationalization (i18n)
